@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MiniTube</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>MiniTube</h1>
+    <input id="search" type="search" placeholder="Buscar videos..." />
+  </header>
+
+  <main class="layout">
+    <section class="player-panel">
+      <div class="player-wrap">
+        <iframe id="player" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Reproductor" allowfullscreen></iframe>
+      </div>
+      <h2 id="video-title">Selecciona un video</h2>
+      <p id="video-channel" class="muted"></p>
+    </section>
+
+    <aside>
+      <h3>Lista de reproducción</h3>
+      <ul id="playlist" class="playlist"></ul>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
