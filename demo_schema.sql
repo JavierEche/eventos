@@ -1,0 +1,38 @@
+-- Esquema base para demo de Eventos
+CREATE DATABASE IF NOT EXISTS eventos_db;
+USE eventos_db;
+
+CREATE TABLE IF NOT EXISTS categorias (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(80) NOT NULL,
+  descripcion VARCHAR(255) NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS organizadores (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(120) NOT NULL,
+  email VARCHAR(120) NOT NULL UNIQUE,
+  telefono VARCHAR(30) NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS eventos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  categoria_id INT NOT NULL,
+  organizador_id INT NOT NULL,
+  titulo VARCHAR(150) NOT NULL,
+  descripcion TEXT,
+  fecha_inicio DATETIME NOT NULL,
+  fecha_fin DATETIME NOT NULL,
+  ubicacion VARCHAR(180) NOT NULL,
+  cupo INT NOT NULL DEFAULT 50,
+  precio DECIMAL(10,2) NOT NULL DEFAULT 0,
+  estado ENUM('borrador','publicado','cancelado') NOT NULL DEFAULT 'publicado',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_eventos_categoria FOREIGN KEY (categoria_id) REFERENCES categorias(id),
+  CONSTRAINT fk_eventos_organizador FOREIGN KEY (organizador_id) REFERENCES organizadores(id)
+);

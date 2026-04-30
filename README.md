@@ -1,75 +1,36 @@
-# Estructura base (Laravel + MySQL)
+# Demo de Eventos (vistas + datos base)
 
-Este repositorio define una base para un proyecto en **Laravel** con **MySQL**, tomando como referencia tu solicitud y el video compartido.
+Este repositorio incluye scripts SQL para levantar una **base de datos demo** de eventos con datos iniciales y vistas listas para consultas.
 
-## 1) Crear proyecto Laravel
+## Archivos clave
 
-```bash
-composer create-project laravel/laravel eventos
-cd eventos
-```
+- `demo_schema.sql`: crea la base `eventos_db` y las tablas `categorias`, `organizadores`, `eventos`.
+- `demo_seed_and_views.sql`: inserta datos base y crea vistas para la demo.
 
-## 2) Configurar base de datos MySQL (`.env`)
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=eventos_db
-DB_USERNAME=root
-DB_PASSWORD=secret
-```
-
-## 3) Estructura recomendada
-
-- `app/Models`: modelos (por ejemplo `Evento`, `Categoria`, `Usuario`)
-- `app/Http/Controllers`: controladores web/api
-- `database/migrations`: definición de tablas y relaciones
-- `database/seeders`: datos iniciales
-- `routes/web.php`: rutas para vistas
-- `routes/api.php`: rutas para API
-- `resources/views`: vistas Blade
-
-## 4) Modelo de ejemplo: eventos
-
-Entidad principal sugerida:
-
-- `id`
-- `titulo`
-- `descripcion`
-- `fecha_inicio`
-- `fecha_fin`
-- `ubicacion`
-- `cupo`
-- `estado` (`borrador`, `publicado`, `cancelado`)
-- `created_at`, `updated_at`
-
-## 5) Flujo mínimo recomendado
-
-1. Crear migración de `eventos`.
-2. Crear modelo `Evento`.
-3. Crear controlador resource `EventoController`.
-4. Definir rutas resource.
-5. Crear vistas Blade (`index`, `create`, `edit`, `show`).
-6. Ejecutar migraciones:
+## Cómo ejecutar
 
 ```bash
-php artisan migrate
+mysql -u root -p < demo_schema.sql
+mysql -u root -p < demo_seed_and_views.sql
 ```
 
-## 6) Comandos útiles
+## Vistas disponibles
 
-```bash
-php artisan make:model Evento -mcr
-php artisan migrate
-php artisan serve
+1. `vw_eventos_detalle`
+   - Une eventos con categoría y organizador.
+2. `vw_eventos_publicados`
+   - Lista solo eventos en estado `publicado`.
+3. `vw_resumen_categoria`
+   - Totales y promedio de precio por categoría.
+
+## Consultas rápidas
+
+```sql
+SELECT * FROM vw_eventos_publicados;
+SELECT * FROM vw_eventos_detalle WHERE precio = 0;
+SELECT * FROM vw_resumen_categoria;
 ```
 
-## 7) Siguiente paso
+## Nota
 
-Si quieres, en el siguiente paso te puedo dejar:
-
-- migraciones completas,
-- controladores CRUD,
-- rutas,
-- y vistas Blade listas para copiar/pegar.
+`index.html` muestra una vista estática con instrucciones rápidas para usar los scripts como demo.

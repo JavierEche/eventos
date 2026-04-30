@@ -3,30 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MiniTube</title>
+  <title>Eventos Demo</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <h1>MiniTube</h1>
-    <input id="search" type="search" placeholder="Buscar videos..." />
+    <h1>Eventos Demo</h1>
+    <p class="muted">Vistas sugeridas para consultar datos semilla de la base de datos.</p>
   </header>
 
   <main class="layout">
     <section class="player-panel">
-      <div class="player-wrap">
-        <iframe id="player" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Reproductor" allowfullscreen></iframe>
-      </div>
-      <h2 id="video-title">Selecciona un video</h2>
-      <p id="video-channel" class="muted"></p>
+      <h2>Vistas creadas</h2>
+      <ul>
+        <li><code>vw_eventos_detalle</code>: detalle completo con categoría y organizador.</li>
+        <li><code>vw_eventos_publicados</code>: eventos visibles para landing.</li>
+        <li><code>vw_resumen_categoria</code>: resumen por categoría.</li>
+      </ul>
+
+      <h3>Consultas demo</h3>
+      <pre><code>SELECT * FROM vw_eventos_publicados;
+SELECT * FROM vw_eventos_detalle WHERE precio = 0;
+SELECT * FROM vw_resumen_categoria;</code></pre>
     </section>
 
     <aside>
-      <h3>Lista de reproducción</h3>
-      <ul id="playlist" class="playlist"></ul>
+      <h3>Cómo ejecutar</h3>
+      <ol>
+        <li><code>mysql -u root -p &lt; demo_schema.sql</code></li>
+        <li><code>mysql -u root -p &lt; demo_seed_and_views.sql</code></li>
+      </ol>
+      <p class="muted">Con esto tendrás estructura, datos base y vistas listas para demo.</p>
     </aside>
   </main>
-
-  <script src="app.js"></script>
 </body>
 </html>
